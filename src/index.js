@@ -144,7 +144,7 @@ async function getNode(typeName, resolveInfo, context, condition, dbCall, option
       }
     }
   }
-  const namespace = new AliasNamespace(options.minify)
+  const namespace = new AliasNamespace(options.minify, options.dialect)
   const sqlAST = {}
   const fieldNodes = resolveInfo.fieldNodes || resolveInfo.fieldASTs
   // uses the same underlying function as the main `joinMonster`
