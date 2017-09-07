@@ -45,7 +45,7 @@ export function queryASTToSqlAST(resolveInfo, options, context) {
   // this is responsible for all the logic regarding creating SQL aliases
   // we need varying degrees of uniqueness and readability
   // force oracle to minify, because it has this 30-character limit on column identifiers
-  const namespace = new AliasNamespace(options.dialect === 'oracle' ? true : options.minify)
+  const namespace = new AliasNamespace(options.dialect === 'oracle' ? true : options.minify, options.dialect)
 
   // we'll build up the AST representing the SQL recursively
   const sqlAST = {}
