@@ -8,9 +8,9 @@ export default class AliasNamespace {
 
     // a generator for infinite alias names, starting with the shortest possible
     // this is helpful for generating the names when minifying
-    this.mininym = dialect === 'mssql' ? 
+    this.mininym = dialect === 'mssql' ?
       G.baseNAll('abcdefghijklmnopqrstuvwxyz#$') :
-      G.baseNAll('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$');
+      G.baseNAll('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$')
 
     // keep track of all the table names we've used since these have to be unique in each query
     this.usedTableAliases = new Set()
