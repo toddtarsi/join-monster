@@ -12,6 +12,8 @@ export default class AliasNamespace {
       G.baseNAll('abcdefghijklmnopqrstuvwxyz#$') :
       G.baseNAll('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$')
 
+    this.dialect = dialect
+
     // keep track of all the table names we've used since these have to be unique in each query
     this.usedTableAliases = new Set()
 
@@ -43,6 +45,12 @@ export default class AliasNamespace {
     }
 
     name = name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '_').slice(0, 10)
+
+    // mssql table aliases are case-insensitive
+    if (this.dialect === 'mssql') {
+      name = name.toLowerCase()
+    }
+
     // the table aliases must be unique
     // just append a "$" until its a unique name
     while (this.usedTableAliases.has(name)) {
