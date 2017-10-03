@@ -5,6 +5,8 @@ import {
 } from '../shared'
 import { filter } from 'lodash'
 
+const OFFSET_FETCH_ALL_CONSTANT = 'ALL'
+
 function recursiveConcat(keys) {
   if (keys.length <= 1) {
     return keys[0]
@@ -49,7 +51,7 @@ function offsetPagingSelect(table, pagingWhereConditions, order, limit, offset, 
       ON ${extraJoin.condition}` : ''}
     WHERE ${whereCondition}
     ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-    OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
+    OFFSET ${offset} ROWS ${limit !== OFFSET_FETCH_ALL_CONSTANT ? `FETCH NEXT ${limit} ROWS ONLY` : ''}
   ) ${q(as)}`
   }
   return `\
@@ -58,7 +60,7 @@ function offsetPagingSelect(table, pagingWhereConditions, order, limit, offset, 
     FROM ${table} "${as}"
     WHERE ${whereCondition}
     ORDER BY ${orderColumnsToString(order.columns, q, order.table)}
-    OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY
+    OFFSET ${offset} ROWS ${limit !== OFFSET_FETCH_ALL_CONSTANT ? `FETCH NEXT ${limit} ROWS ONLY` : ''}
   ) ${q(as)}`
 }
 
